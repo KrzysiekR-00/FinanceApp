@@ -11,42 +11,42 @@ public class AssetUnitService
         _repository = repository;
     }
 
-    public AssetUnit[] GetAssetUnits()
+    public async Task<AssetUnit[]> GetAssetUnits()
     {
-        return _repository.GetAssetUnits();
+        return await _repository.GetAssetUnits();
     }
 
-    public void CreateAssetUnit(AssetUnit assetUnit)
+    public async Task CreateAssetUnit(AssetUnit assetUnit)
     {
-        _repository.CreateAssetUnit(assetUnit);
+        await _repository.CreateAssetUnit(assetUnit);
     }
 
-    public bool CanEditAssetUnit(AssetUnit assetUnit)
+    public async Task<bool> CanEditAssetUnit(AssetUnit assetUnit)
     {
         return true;
     }
 
-    public void UpdateAssetUnit(AssetUnit assetUnit)
+    public async Task UpdateAssetUnit(AssetUnit assetUnit)
     {
-        if (!CanEditAssetUnit(assetUnit)) return;
+        if (!await CanEditAssetUnit(assetUnit)) return;
 
-        _repository.UpdateAssetUnit(assetUnit);
+        await _repository.UpdateAssetUnit(assetUnit);
     }
 
-    public void DeleteAssetUnit(AssetUnit assetUnit)
+    public async Task DeleteAssetUnit(AssetUnit assetUnit)
     {
-        if (!CanEditAssetUnit(assetUnit)) return;
+        if (!await CanEditAssetUnit(assetUnit)) return;
 
-        _repository.DeleteAssetUnit(assetUnit);
+        await _repository.DeleteAssetUnit(assetUnit);
     }
 
-    public int GetMainUnitId()
+    public async Task<int> GetMainUnitId()
     {
-        return _repository.GetMainUnitId();
+        return await _repository.GetMainUnitId();
     }
 
-    public void SaveMainUnitId(int id)
+    public async Task SaveMainUnitId(int id)
     {
-        _repository.SaveMainUnitId(id);
+        await _repository.SaveMainUnitId(id);
     }
 }

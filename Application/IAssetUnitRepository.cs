@@ -4,10 +4,10 @@ namespace Services;
 
 public interface IAssetUnitRepository
 {
-    AssetUnit[] GetAssetUnits();
-    void CreateAssetUnit(AssetUnit assetUnit);
-    void UpdateAssetUnit(AssetUnit assetUnit);
-    void DeleteAssetUnit(AssetUnit assetUnit);
-    int GetMainUnitId();
-    void SaveMainUnitId(int id);
+    Task<AssetUnit[]> GetAssetUnits();
+    Task CreateAssetUnit(AssetUnit assetUnit);
+    Task UpdateAssetUnit(AssetUnit assetUnit);
+    Task DeleteAssetUnit(AssetUnit assetUnit);
+    Task<int> GetMainUnitId();
+    Task SaveMainUnitId(int id);
 }

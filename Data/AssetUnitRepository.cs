@@ -1,5 +1,6 @@
 ﻿using Data.Entities;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using Services;
 
 namespace Data;
@@ -15,17 +16,17 @@ public class AssetUnitRepository : IAssetUnitRepository
         _dbContext = dbContext;
     }
 
-    public AssetUnit[] GetAssetUnits()
+    public async Task<AssetUnit[]> GetAssetUnits()
     {
-        return [.. _dbContext.AssetUnits.Select(u => new AssetUnit()
+        return await _dbContext.AssetUnits.Select(u => new AssetUnit()
         {
             Id = u.Id,
             Symbol = u.Symbol,
             UnitModifier = u.UnitModifier
-        })];
+        }).ToArrayAsync();
     }
 
-    public void CreateAssetUnit(AssetUnit assetUnit)
+    public async Task CreateAssetUnit(AssetUnit assetUnit)
     {
         var entity = new AssetUnitEntity
         {
@@ -35,31 +36,31 @@ public class AssetUnitRepository : IAssetUnitRepository
 
         _dbContext.AssetUnits.Add(entity);
 
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 
-    public void UpdateAssetUnit(AssetUnit assetUnit)
+    public async Task UpdateAssetUnit(AssetUnit assetUnit)
     {
-        var entity = _dbContext.AssetUnits.First(x => x.Id == assetUnit.Id);
+        var entity = await _dbContext.AssetUnits.FirstAsync(x => x.Id == assetUnit.Id);
 
         entity.Symbol = assetUnit.Symbol;
         entity.UnitModifier = assetUnit.UnitModifier;
 
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 
-    public void DeleteAssetUnit(AssetUnit assetUnit)
+    public async Task DeleteAssetUnit(AssetUnit assetUnit)
     {
-        var entity = _dbContext.AssetUnits.First(x => x.Id == assetUnit.Id);
+        var entity = await _dbContext.AssetUnits.FirstAsync(x => x.Id == assetUnit.Id);
 
         _dbContext.AssetUnits.Remove(entity);
 
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 
-    public int GetMainUnitId()
+    public async Task<int> GetMainUnitId()
     {
-        var setting = _dbContext.Settings.FirstOrDefault(s => s.Key == MainUnitIdSettingKey);
+        var setting = await _dbContext.Settings.FirstOrDefaultAsync(s => s.Key == MainUnitIdSettingKey);
 
         if (setting != null)
         {
@@ -72,9 +73,9 @@ public class AssetUnitRepository : IAssetUnitRepository
         return 0;
     }
 
-    public void SaveMainUnitId(int id)
+    public async Task SaveMainUnitId(int id)
     {
-        var setting = _dbContext.Settings.FirstOrDefault(s => s.Key == MainUnitIdSettingKey);
+        var setting = await _dbContext.Settings.FirstOrDefaultAsync(s => s.Key == MainUnitIdSettingKey);
 
         if (setting == null)
         {
@@ -89,6 +90,6 @@ public class AssetUnitRepository : IAssetUnitRepository
             setting.Value = id.ToString();
         }
 
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 }

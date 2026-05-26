@@ -10,16 +10,16 @@ internal partial class Navigator : ObservableObject
 
     internal Navigator(ViewModelBase startupViewModel)
     {
-        NavigateTo(startupViewModel);
+        _ = NavigateTo(startupViewModel);
     }
 
-    internal void NavigateTo(ViewModelBase viewModel)
+    internal async Task NavigateTo(ViewModelBase viewModel)
     {
         if (CurrentViewModel == viewModel) return;
         if (CurrentViewModel?.GetType() == viewModel.GetType()) return;
 
         CurrentViewModel = viewModel;
 
-        CurrentViewModel.OnNavigateTo();
+        await CurrentViewModel.OnNavigateTo();
     }
 }

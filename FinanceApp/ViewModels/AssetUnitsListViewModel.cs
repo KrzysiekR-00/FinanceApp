@@ -35,13 +35,13 @@ internal partial class AssetUnitsListViewModel : ViewModelBase
         _assetUnitService = assetUnitService;
     }
 
-    public override void OnNavigateTo()
+    public override async Task OnNavigateTo()
     {
         _isInitialized = false;
 
-        ReloadList();
+        await ReloadList();
 
-        var mainUnitId = _assetUnitService.GetMainUnitId();
+        var mainUnitId = await _assetUnitService.GetMainUnitId();
         MainUnit = AssetUnits.FirstOrDefault(u => u.AssetUnit.Id == mainUnitId);
 
         EditedUnit = new() { Id = 0, Symbol = string.Empty, UnitModifier = 1 };
@@ -49,14 +49,22 @@ internal partial class AssetUnitsListViewModel : ViewModelBase
         _isInitialized = true;
     }
 
-    private void ReloadList()
+    private async Task ReloadList()
     {
-        AssetUnits = [.. _assetUnitService
-            .GetAssetUnits()
-            .Select(u => new AssetUnitViewModel() {
-                AssetUnit = u,
-                CanEdit = _assetUnitService.CanEditAssetUnit(u)
-            })];
+        var units = await _assetUnitService.GetAssetUnits();
+
+        var viewModels = units.Select(u => new AssetUnitViewModel()
+        {
+            AssetUnit = u,
+            CanEdit = false
+        });
+
+        foreach (var viewModel in viewModels)
+        {
+            viewModel.CanEdit = await _assetUnitService.CanEditAssetUnit(viewModel.AssetUnit);
+        }
+
+        AssetUnits = new ObservableCollection<AssetUnitViewModel>(viewModels);
     }
 
     partial void OnMainUnitChanged(AssetUnitViewModel? value)
@@ -64,7 +72,7 @@ internal partial class AssetUnitsListViewModel : ViewModelBase
         if (MainUnit == null) return;
         if (_isInitialized == false) return;
 
-        _assetUnitService.SaveMainUnitId(MainUnit.AssetUnit.Id);
+        _ = _assetUnitService.SaveMainUnitId(MainUnit.AssetUnit.Id);
     }
 
     [RelayCommand]
@@ -74,31 +82,31 @@ internal partial class AssetUnitsListViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void Delete()
+    private async Task Delete()
     {
         if (SelectedUnit != null)
         {
-            _assetUnitService.DeleteAssetUnit(SelectedUnit.AssetUnit);
+            await _assetUnitService.DeleteAssetUnit(SelectedUnit.AssetUnit);
 
-            ReloadList();
+            await ReloadList();
         }
     }
 
     [RelayCommand]
-    private void Save()
+    private async Task Save()
     {
         if (string.IsNullOrEmpty(EditedUnit.Symbol)) return;
 
         if (EditedUnit.Id == 0)
         {
-            _assetUnitService.CreateAssetUnit(EditedUnit);
+            await _assetUnitService.CreateAssetUnit(EditedUnit);
         }
         else
         {
-            _assetUnitService.UpdateAssetUnit(EditedUnit);
+            await _assetUnitService.UpdateAssetUnit(EditedUnit);
         }
 
-        ReloadList();
+        await ReloadList();
 
         EditedUnit = new() { Id = 0, Symbol = string.Empty, UnitModifier = 1 };
     }

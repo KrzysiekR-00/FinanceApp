@@ -19,8 +19,8 @@ internal partial class MainLayoutViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void OpenAssetUnitsList()
+    private async Task OpenAssetUnitsList()
     {
-        Navigator.NavigateTo(_assetUnitsListViewModel);
+        await Navigator.NavigateTo(_assetUnitsListViewModel);
     }
 }

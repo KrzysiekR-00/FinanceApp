@@ -4,9 +4,7 @@ namespace FinanceApp.ViewModels;
 
 internal abstract class ViewModelBase : ObservableObject
 {
-    //public virtual string Title => string.Empty;
-
-    public virtual void OnNavigateTo()
+    public virtual async Task OnNavigateTo()
     {
 
     }
