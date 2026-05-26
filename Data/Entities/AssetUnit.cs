@@ -2,7 +2,7 @@
 
 public class AssetUnitEntity
 {
-    public required int Id { get; set; }
-    public required string Symbol { get; set; }
-    public required decimal UnitModifier { get; set; }
+    public int Id { get; set; }
+    public string Symbol { get; set; }
+    public decimal UnitModifier { get; set; }
 }

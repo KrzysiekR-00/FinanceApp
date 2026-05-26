@@ -10,20 +10,34 @@
 
     <DockPanel>
         <Label Content="Jednostki" DockPanel.Dock="Top" FontSize="24" Margin="5"/>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-            <!--<Button Content="Dodaj" Command="{Binding AddCommand}" />-->
-            <!--<Button Content="Usuń wybrany" Command="{Binding RemoveCommand}" />-->
-            <Button Content="Zapisz" Command="{Binding SaveCommand}" Margin="5"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-            <Label Content="Główna jednostka:" VerticalAlignment="Center" Margin="5"/>
-            <ComboBox DisplayMemberPath="Symbol" ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding MainUnit}" Margin="5"/>
-        </StackPanel>
-        <DataGrid ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Selected}" AutoGenerateColumns="False" Margin="5">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
-                <DataGridTextColumn Header="Modyfikator" Binding="{Binding UnitModifier}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" MinWidth="250">
+                <Label Content="Symbol:" Margin="5"/>
+                <TextBox Margin="5" Text="{Binding EditedUnit.Symbol}"/>
+                <Label Content="Modyfikator:" Margin="5"/>
+                <TextBox Margin="5" Text="{Binding EditedUnit.UnitModifier}"/>
+                <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
+                <Label Content="Główna jednostka:" Margin="5"/>
+                <ComboBox DisplayMemberPath="Symbol" ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding MainUnit}" Margin="5"/>
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedUnit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding AssetUnit.Id}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Symbol" Binding="{Binding AssetUnit.Symbol}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Modyfikator" Binding="{Binding AssetUnit.UnitModifier}" IsReadOnly="True"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Edytuj" Margin="5" IsEnabled="{Binding CanEdit}" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    <Button Content="Usuń" Margin="5" IsEnabled="{Binding CanEdit}"  Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+        
     </DockPanel>
 </Page>

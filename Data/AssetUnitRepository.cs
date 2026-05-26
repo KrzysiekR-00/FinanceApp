@@ -28,30 +28,34 @@ public class AssetUnitRepository : IAssetUnitRepository
         return 0;
     }
 
-    public void SaveAssetUnits(AssetUnit[] assetUnits)
+    public void CreateAssetUnit(AssetUnit assetUnit)
     {
-        var currentIds = _dbContext.AssetUnits.Select(u => u.Id).ToArray();
-
-        var entities = assetUnits.Select(u => new AssetUnitEntity()
+        var entity = new AssetUnitEntity
         {
-            Id = u.Id,
-            Symbol = u.Symbol,
-            UnitModifier = u.UnitModifier
-        });
+            Symbol = assetUnit.Symbol,
+            UnitModifier = assetUnit.UnitModifier
+        };
 
-        var toDeleteIds = currentIds.Where(c => !entities.Any(e => e.Id == c));
+        _dbContext.AssetUnits.Add(entity);
 
-        _dbContext.AssetUnits.RemoveRange(_dbContext.AssetUnits.Where(u => toDeleteIds.Contains(u.Id)));
+        _dbContext.SaveChanges();
+    }
 
-        _dbContext.AssetUnits.AddRange(entities.Where(e => e.Id == 0));
+    public void UpdateAssetUnit(AssetUnit assetUnit)
+    {
+        var entity = _dbContext.AssetUnits.First(x => x.Id == assetUnit.Id);
 
-        foreach (var e in entities.Where(e => e.Id != 0))
-        {
-            var toUpdate = _dbContext.AssetUnits.First(u => u.Id == e.Id);
+        entity.Symbol = assetUnit.Symbol;
+        entity.UnitModifier = assetUnit.UnitModifier;
 
-            toUpdate.Symbol = e.Symbol;
-            toUpdate.UnitModifier = e.UnitModifier;
-        }
+        _dbContext.SaveChanges();
+    }
+
+    public void DeleteAssetUnit(AssetUnit assetUnit)
+    {
+        var entity = _dbContext.AssetUnits.First(x => x.Id == assetUnit.Id);
+
+        _dbContext.AssetUnits.Remove(entity);
 
         _dbContext.SaveChanges();
     }
