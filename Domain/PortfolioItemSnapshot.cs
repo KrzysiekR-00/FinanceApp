@@ -1,6 +1,6 @@
 ﻿namespace Domain;
 
-internal class PortfolioItemSnapshot
+public class PortfolioItemSnapshot
 {
     public required int Id { get; set; }
     public required int PortfolioItemId { get; set; }

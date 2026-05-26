@@ -1,6 +1,6 @@
 ﻿namespace Domain;
 
-internal class ExchangeRateSnapshot
+public class ExchangeRateSnapshot
 {
     public required int Id { get; set; }
     public required int AssetUnitId { get; set; }

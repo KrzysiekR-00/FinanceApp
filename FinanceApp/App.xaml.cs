@@ -42,7 +42,8 @@ public partial class App : Application
         var mappings = new Dictionary<Type, Type>
         {
             { typeof(MainLayoutViewModel), typeof(MainLayout) },
-            { typeof(AssetUnitsListViewModel), typeof(AssetUnitsList) }
+            { typeof(AssetUnitsListViewModel), typeof(AssetUnitsList) },
+            { typeof(PortfolioItemsListViewModel), typeof(PortfolioItemsList) }
         };
 
         foreach (var map in mappings)
@@ -64,12 +65,15 @@ public partial class App : Application
         });
 
         services.AddScoped<IAssetUnitRepository, AssetUnitRepository>();
+        services.AddScoped<IPortfolioItemRepository, PortfolioItemRepository>();
 
         services.AddScoped<AssetUnitService>();
+        services.AddScoped<PortfolioItemService>();
 
         services.AddScoped<MainWindowViewModel>();
         services.AddScoped<MainLayoutViewModel>();
         services.AddScoped<AssetUnitsListViewModel>();
+        services.AddScoped<PortfolioItemsListViewModel>();
     }
 }
 

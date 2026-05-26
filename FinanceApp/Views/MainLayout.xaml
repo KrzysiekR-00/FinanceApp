@@ -24,7 +24,7 @@
             </StackPanel.Resources>
             <Button Content="Dashboard"/>
             <Button Content="Jednostki" Command="{Binding OpenAssetUnitsListCommand}"/>
-            <Button Content="Aktywa/zobowiązania"/>
+            <Button Content="Aktywa/zobowiązania" Command="{Binding OpenPortfolioItemsListCommand}"/>
             <Button Content="Historia"/>
         </StackPanel>
         <Frame Grid.Column="1" Content="{Binding Navigator.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}" NavigationUIVisibility="Hidden" />

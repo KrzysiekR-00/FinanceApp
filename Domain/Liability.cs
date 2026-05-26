@@ -1,5 +1,5 @@
 ﻿namespace Domain;
 
-internal class Liability : PortfolioItem
+public class Liability : PortfolioItem
 {
 }
