@@ -22,6 +22,8 @@ internal partial class AssetUnitsListViewModel : ViewModelBase
 
     private readonly AssetUnitService _assetUnitService;
 
+    private bool _isInitialized = true;
+
     public class AssetUnitViewModel
     {
         public required AssetUnit AssetUnit { get; set; }
@@ -35,12 +37,16 @@ internal partial class AssetUnitsListViewModel : ViewModelBase
 
     public override void OnNavigateTo()
     {
+        _isInitialized = false;
+
         ReloadList();
 
         var mainUnitId = _assetUnitService.GetMainUnitId();
         MainUnit = AssetUnits.FirstOrDefault(u => u.AssetUnit.Id == mainUnitId);
 
         EditedUnit = new() { Id = 0, Symbol = string.Empty, UnitModifier = 1 };
+
+        _isInitialized = true;
     }
 
     private void ReloadList()
@@ -51,6 +57,14 @@ internal partial class AssetUnitsListViewModel : ViewModelBase
                 AssetUnit = u,
                 CanEdit = _assetUnitService.CanEditAssetUnit(u)
             })];
+    }
+
+    partial void OnMainUnitChanged(AssetUnitViewModel? value)
+    {
+        if (MainUnit == null) return;
+        if (_isInitialized == false) return;
+
+        _assetUnitService.SaveMainUnitId(MainUnit.AssetUnit.Id);
     }
 
     [RelayCommand]

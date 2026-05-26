@@ -18,7 +18,7 @@
                 <TextBox Margin="5" Text="{Binding EditedUnit.UnitModifier}"/>
                 <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
                 <Label Content="Główna jednostka:" Margin="5"/>
-                <ComboBox DisplayMemberPath="Symbol" ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding MainUnit}" Margin="5"/>
+                <ComboBox DisplayMemberPath="AssetUnit.Symbol" ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding MainUnit}" Margin="5"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedUnit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
                 <DataGrid.Columns>

@@ -24,7 +24,6 @@
             </StackPanel.Resources>
             <Button Content="Dashboard"/>
             <Button Content="Jednostki" Command="{Binding OpenAssetUnitsListCommand}"/>
-            <Button Content="Kursy"/>
             <Button Content="Aktywa/zobowiązania"/>
             <Button Content="Historia"/>
         </StackPanel>

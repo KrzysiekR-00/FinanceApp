@@ -6,6 +6,8 @@ namespace Data;
 
 public class AssetUnitRepository : IAssetUnitRepository
 {
+    private const string MainUnitIdSettingKey = "MainUnitId";
+
     private readonly AppDbContext _dbContext;
 
     public AssetUnitRepository(AppDbContext dbContext)
@@ -21,11 +23,6 @@ public class AssetUnitRepository : IAssetUnitRepository
             Symbol = u.Symbol,
             UnitModifier = u.UnitModifier
         })];
-    }
-
-    public int GetMainUnitId()
-    {
-        return 0;
     }
 
     public void CreateAssetUnit(AssetUnit assetUnit)
@@ -60,8 +57,38 @@ public class AssetUnitRepository : IAssetUnitRepository
         _dbContext.SaveChanges();
     }
 
+    public int GetMainUnitId()
+    {
+        var setting = _dbContext.Settings.FirstOrDefault(s => s.Key == MainUnitIdSettingKey);
+
+        if (setting != null)
+        {
+            if (int.TryParse(setting.Value, out var id))
+            {
+                return id;
+            }
+        }
+
+        return 0;
+    }
+
     public void SaveMainUnitId(int id)
     {
-        //throw new NotImplementedException();
+        var setting = _dbContext.Settings.FirstOrDefault(s => s.Key == MainUnitIdSettingKey);
+
+        if (setting == null)
+        {
+            _dbContext.Settings.Add(new SettingEntity()
+            {
+                Key = MainUnitIdSettingKey,
+                Value = id.ToString()
+            });
+        }
+        else
+        {
+            setting.Value = id.ToString();
+        }
+
+        _dbContext.SaveChanges();
     }
 }
