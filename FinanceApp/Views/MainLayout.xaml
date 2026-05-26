@@ -1,0 +1,33 @@
+﻿<Page x:Class="FinanceApp.Views.MainLayout"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinanceApp.Views" xmlns:viewmodels="clr-namespace:FinanceApp.ViewModels" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:MainLayoutViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainLayout">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <StackPanel.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Margin" Value="5" />
+                    <Setter Property="Padding" Value="25,10" />
+                </Style>
+            </StackPanel.Resources>
+            <Button Content="Dashboard"/>
+            <Button Content="Jednostki" Command="{Binding OpenAssetUnitsListCommand}"/>
+            <Button Content="Kursy"/>
+            <Button Content="Aktywa/zobowiązania"/>
+            <Button Content="Historia"/>
+        </StackPanel>
+        <Frame Grid.Column="1" Content="{Binding Navigator.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}" NavigationUIVisibility="Hidden" />
+    </Grid>
+</Page>

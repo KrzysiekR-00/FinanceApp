@@ -1,0 +1,29 @@
+﻿<Page x:Class="FinanceApp.Views.AssetUnitsList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinanceApp.Views" xmlns:viewmodels="clr-namespace:FinanceApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AssetUnitsListViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AssetUnitsList">
+
+    <DockPanel>
+        <Label Content="Jednostki" DockPanel.Dock="Top" FontSize="24" Margin="5"/>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <!--<Button Content="Dodaj" Command="{Binding AddCommand}" />-->
+            <!--<Button Content="Usuń wybrany" Command="{Binding RemoveCommand}" />-->
+            <Button Content="Zapisz" Command="{Binding SaveCommand}" Margin="5"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+            <Label Content="Główna jednostka:" VerticalAlignment="Center" Margin="5"/>
+            <ComboBox DisplayMemberPath="Symbol" ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding MainUnit}" Margin="5"/>
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding AssetUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Selected}" AutoGenerateColumns="False" Margin="5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
+                <DataGridTextColumn Header="Modyfikator" Binding="{Binding UnitModifier}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Page>

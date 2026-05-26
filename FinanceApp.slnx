@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Application/Services.csproj" Id="bed3961e-a64e-42b3-8f8c-ebd96953c393" />
+  <Project Path="Data/Data.csproj" Id="a02e710f-8196-4c51-8ef6-049f51fb43f1" />
+  <Project Path="Domain/Domain.csproj" Id="bc7278a2-9b81-48c9-9882-ef76161aa1d1" />
+  <Project Path="FinanceApp/FinanceApp.csproj" />
+</Solution>
