@@ -21,6 +21,9 @@ internal partial class PortfolioItemsListViewModel : ViewModelBase
     public partial PortfolioItemUnit[] PortfolioItemUnits { get; set; } = null!;
 
     [ObservableProperty]
+    public partial PortfolioItemType[] PortfolioItemTypes { get; set; } = null!;
+
+    [ObservableProperty]
     public partial PortfolioItemUnit? MainUnit { get; set; }
 
     private readonly PortfolioItemService _portfolioItemService;
@@ -36,6 +39,12 @@ internal partial class PortfolioItemsListViewModel : ViewModelBase
     {
         _portfolioItemService = portfolioItemService;
         _PortfolioItemUnitService = PortfolioItemUnitService;
+
+        PortfolioItemTypes =
+        [
+            PortfolioItemType.Asset,
+            PortfolioItemType.Liability
+        ];
     }
 
     public override async Task OnNavigateTo()
@@ -60,7 +69,7 @@ internal partial class PortfolioItemsListViewModel : ViewModelBase
         {
             PortfolioItem = i,
             CanEdit = false
-        });
+        }).ToArray();
 
         foreach (var viewModel in viewModels)
         {

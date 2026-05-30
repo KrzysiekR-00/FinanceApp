@@ -57,7 +57,7 @@ internal partial class PortfolioItemUnitsListViewModel : ViewModelBase
         {
             PortfolioItemUnit = u,
             CanEdit = false
-        });
+        }).ToArray();
 
         foreach (var viewModel in viewModels)
         {

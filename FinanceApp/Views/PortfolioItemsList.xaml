@@ -15,8 +15,9 @@
                 <Label Content="Nazwa:" Margin="5"/>
                 <TextBox Margin="5" Text="{Binding EditedItem.Name}"/>
                 <Label Content="Jednostka:" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding EditedItem.Unit.Symbol}"/>
+                <ComboBox DisplayMemberPath="Symbol" ItemsSource="{Binding PortfolioItemUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding EditedItem.Unit}" Margin="5"/>
                 <Label Content="Typ:" Margin="5"/>
+                <ComboBox ItemsSource="{Binding PortfolioItemTypes, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding EditedItem.Type}" Margin="5"/>
                 <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding PortfolioItems, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
@@ -24,7 +25,7 @@
                     <DataGridTextColumn Header="Id" Binding="{Binding PortfolioItem.Id}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Nazwa" Binding="{Binding PortfolioItem.Name}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Jednostka" Binding="{Binding PortfolioItem.Unit.Symbol}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Typ" Binding="{Binding PortfolioItem.UnitModifier}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Typ" Binding="{Binding PortfolioItem.Type}" IsReadOnly="True"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
