@@ -1,6 +1,6 @@
 ﻿namespace Domain;
 
-public class AssetUnit
+public class PortfolioItemUnit
 {
     public required int Id { get; set; }
     public required string Symbol { get; set; }

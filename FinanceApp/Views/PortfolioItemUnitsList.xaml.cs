@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 
 namespace FinanceApp.Views;
 /// <summary>
-/// Interaction logic for AssetUnitsList.xaml
+/// Interaction logic for PortfolioItemUnitsList.xaml
 /// </summary>
-public partial class AssetUnitsList : Page
+public partial class PortfolioItemUnitsList : Page
 {
-    public AssetUnitsList()
+    public PortfolioItemUnitsList()
     {
         InitializeComponent();
     }

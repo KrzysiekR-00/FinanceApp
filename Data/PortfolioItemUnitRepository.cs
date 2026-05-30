@@ -5,20 +5,20 @@ using Services;
 
 namespace Data;
 
-public class AssetUnitRepository : IAssetUnitRepository
+public class PortfolioItemUnitRepository : IPortfolioItemUnitRepository
 {
     private const string MainUnitIdSettingKey = "MainUnitId";
 
     private readonly AppDbContext _dbContext;
 
-    public AssetUnitRepository(AppDbContext dbContext)
+    public PortfolioItemUnitRepository(AppDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<AssetUnit[]> GetAssetUnits()
+    public async Task<PortfolioItemUnit[]> GetPortfolioItemUnits()
     {
-        return await _dbContext.AssetUnits.Select(u => new AssetUnit()
+        return await _dbContext.PortfolioItemUnits.Select(u => new PortfolioItemUnit()
         {
             Id = u.Id,
             Symbol = u.Symbol,
@@ -26,34 +26,34 @@ public class AssetUnitRepository : IAssetUnitRepository
         }).ToArrayAsync();
     }
 
-    public async Task CreateAssetUnit(AssetUnit assetUnit)
+    public async Task CreatePortfolioItemUnit(PortfolioItemUnit portfolioItemUnit)
     {
-        var entity = new AssetUnitEntity
+        var entity = new PortfolioItemUnitEntity
         {
-            Symbol = assetUnit.Symbol,
-            UnitModifier = assetUnit.UnitModifier
+            Symbol = portfolioItemUnit.Symbol,
+            UnitModifier = portfolioItemUnit.UnitModifier
         };
 
-        _dbContext.AssetUnits.Add(entity);
+        _dbContext.PortfolioItemUnits.Add(entity);
 
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateAssetUnit(AssetUnit assetUnit)
+    public async Task UpdatePortfolioItemUnit(PortfolioItemUnit portfolioItemUnit)
     {
-        var entity = await _dbContext.AssetUnits.FirstAsync(x => x.Id == assetUnit.Id);
+        var entity = await _dbContext.PortfolioItemUnits.FirstAsync(x => x.Id == portfolioItemUnit.Id);
 
-        entity.Symbol = assetUnit.Symbol;
-        entity.UnitModifier = assetUnit.UnitModifier;
+        entity.Symbol = portfolioItemUnit.Symbol;
+        entity.UnitModifier = portfolioItemUnit.UnitModifier;
 
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAssetUnit(AssetUnit assetUnit)
+    public async Task DeletePortfolioItemUnit(PortfolioItemUnit portfolioItemUnit)
     {
-        var entity = await _dbContext.AssetUnits.FirstAsync(x => x.Id == assetUnit.Id);
+        var entity = await _dbContext.PortfolioItemUnits.FirstAsync(x => x.Id == portfolioItemUnit.Id);
 
-        _dbContext.AssetUnits.Remove(entity);
+        _dbContext.PortfolioItemUnits.Remove(entity);
 
         await _dbContext.SaveChangesAsync();
     }

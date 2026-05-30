@@ -9,21 +9,21 @@ internal partial class MainLayoutViewModel : ViewModelBase
     [ObservableProperty]
     public partial Navigator Navigator { get; set; } = null!;
 
-    private readonly AssetUnitsListViewModel _assetUnitsListViewModel;
+    private readonly PortfolioItemUnitsListViewModel _PortfolioItemUnitsListViewModel;
     private readonly PortfolioItemsListViewModel _portfolioItemsListViewModel;
 
-    public MainLayoutViewModel(AssetUnitsListViewModel assetUnitsListViewModel, PortfolioItemsListViewModel portfolioItemsListViewModel)
+    public MainLayoutViewModel(PortfolioItemUnitsListViewModel PortfolioItemUnitsListViewModel, PortfolioItemsListViewModel portfolioItemsListViewModel)
     {
         Navigator = new Navigator(null);
 
-        _assetUnitsListViewModel = assetUnitsListViewModel;
+        _PortfolioItemUnitsListViewModel = PortfolioItemUnitsListViewModel;
         _portfolioItemsListViewModel = portfolioItemsListViewModel;
     }
 
     [RelayCommand]
-    private async Task OpenAssetUnitsList()
+    private async Task OpenPortfolioItemUnitsList()
     {
-        await Navigator.NavigateTo(_assetUnitsListViewModel);
+        await Navigator.NavigateTo(_PortfolioItemUnitsListViewModel);
     }
 
     [RelayCommand]

@@ -23,7 +23,7 @@
                 </Style>
             </StackPanel.Resources>
             <Button Content="Dashboard"/>
-            <Button Content="Jednostki" Command="{Binding OpenAssetUnitsListCommand}"/>
+            <Button Content="Jednostki" Command="{Binding OpenPortfolioItemUnitsListCommand}"/>
             <Button Content="Aktywa/zobowiązania" Command="{Binding OpenPortfolioItemsListCommand}"/>
             <Button Content="Historia"/>
         </StackPanel>

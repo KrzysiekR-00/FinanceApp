@@ -18,13 +18,13 @@ internal partial class PortfolioItemsListViewModel : ViewModelBase
     public partial PortfolioItem EditedItem { get; set; } = null!;
 
     [ObservableProperty]
-    public partial AssetUnit[] AssetUnits { get; set; }
+    public partial PortfolioItemUnit[] PortfolioItemUnits { get; set; } = null!;
 
     [ObservableProperty]
-    public partial AssetUnit MainUnit { get; set; }
+    public partial PortfolioItemUnit? MainUnit { get; set; }
 
     private readonly PortfolioItemService _portfolioItemService;
-    private readonly AssetUnitService _assetUnitService;
+    private readonly PortfolioItemUnitService _PortfolioItemUnitService;
 
     public class PortfolioItemViewModel
     {
@@ -32,21 +32,24 @@ internal partial class PortfolioItemsListViewModel : ViewModelBase
         public required bool CanEdit { get; set; }
     }
 
-    public PortfolioItemsListViewModel(PortfolioItemService portfolioItemService, AssetUnitService assetUnitService)
+    public PortfolioItemsListViewModel(PortfolioItemService portfolioItemService, PortfolioItemUnitService PortfolioItemUnitService)
     {
         _portfolioItemService = portfolioItemService;
-        _assetUnitService = assetUnitService;
+        _PortfolioItemUnitService = PortfolioItemUnitService;
     }
 
     public override async Task OnNavigateTo()
     {
         await ReloadList();
 
-        AssetUnits = await _assetUnitService.GetAssetUnits();
-        var mainUnitId = await _assetUnitService.GetMainUnitId();
-        MainUnit = AssetUnits.First(u => u.Id == mainUnitId);
+        PortfolioItemUnits = await _PortfolioItemUnitService.GetPortfolioItemUnits();
+        var mainUnitId = await _PortfolioItemUnitService.GetMainUnitId();
+        MainUnit = PortfolioItemUnits.FirstOrDefault(u => u.Id == mainUnitId);
 
-        EditedItem = new() { Id = 0, Name = string.Empty, Unit = MainUnit };
+        if (MainUnit != null)
+        {
+            EditedItem = new() { Id = 0, Name = string.Empty, Type = PortfolioItemType.Asset, Unit = MainUnit };
+        }
     }
 
     private async Task ReloadList()
@@ -100,6 +103,9 @@ internal partial class PortfolioItemsListViewModel : ViewModelBase
 
         await ReloadList();
 
-        EditedItem = new() { Id = 0, Name = string.Empty, Unit = MainUnit };
+        if (MainUnit != null)
+        {
+            EditedItem = new() { Id = 0, Name = string.Empty, Type = PortfolioItemType.Asset, Unit = MainUnit };
+        }
     }
 }

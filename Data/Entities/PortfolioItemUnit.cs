@@ -1,6 +1,6 @@
 ﻿namespace Data.Entities;
 
-public class AssetUnitEntity
+public class PortfolioItemUnitEntity
 {
     public int Id { get; set; }
     public string Symbol { get; set; }
