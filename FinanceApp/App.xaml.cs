@@ -1,5 +1,6 @@
 ﻿using Data;
 using FinanceApp.ViewModels;
+using FinanceApp.ViewModels.Factories;
 using FinanceApp.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +44,8 @@ public partial class App : Application
         {
             { typeof(MainLayoutViewModel), typeof(MainLayout) },
             { typeof(PortfolioItemUnitsListViewModel), typeof(PortfolioItemUnitsList) },
-            { typeof(PortfolioItemsListViewModel), typeof(PortfolioItemsList) }
+            { typeof(PortfolioItemsListViewModel), typeof(PortfolioItemsList) },
+            { typeof(SnapshotEditorViewModel), typeof(SnapshotEditor) }
         };
 
         foreach (var map in mappings)
@@ -74,6 +76,8 @@ public partial class App : Application
         services.AddScoped<MainLayoutViewModel>();
         services.AddScoped<PortfolioItemUnitsListViewModel>();
         services.AddScoped<PortfolioItemsListViewModel>();
+
+        services.AddScoped<SnapshotEditorViewModelFactory>();
     }
 }
 

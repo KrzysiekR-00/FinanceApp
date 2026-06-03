@@ -25,6 +25,7 @@
             <Button Content="Dashboard"/>
             <Button Content="Jednostki" Command="{Binding OpenPortfolioItemUnitsListCommand}"/>
             <Button Content="Aktywa/zobowiązania" Command="{Binding OpenPortfolioItemsListCommand}"/>
+            <Button Content="Aktualizuj stan" Command="{Binding AddNewSnapshotCommand}"/>
             <Button Content="Historia"/>
         </StackPanel>
         <Frame Grid.Column="1" Content="{Binding Navigator.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}" NavigationUIVisibility="Hidden" />
