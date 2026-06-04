@@ -38,6 +38,6 @@ internal partial class MainLayoutViewModel : ViewModelBase
     [RelayCommand]
     private async Task AddNewSnapshot()
     {
-        await Navigator.NavigateTo(_snapshotEditorViewModelFactory.CreateNew());
+        await Navigator.NavigateTo(await _snapshotEditorViewModelFactory.CreateNew());
     }
 }

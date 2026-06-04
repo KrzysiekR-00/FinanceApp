@@ -71,6 +71,7 @@ public partial class App : Application
 
         services.AddScoped<PortfolioItemUnitService>();
         services.AddScoped<PortfolioItemService>();
+        services.AddScoped<SnapshotService>();
 
         services.AddScoped<MainWindowViewModel>();
         services.AddScoped<MainLayoutViewModel>();

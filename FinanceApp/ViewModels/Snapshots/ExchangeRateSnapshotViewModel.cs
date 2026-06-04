@@ -1,8 +1,9 @@
-﻿namespace Domain;
+﻿using Domain;
 
-public class ExchangeRateSnapshot
+namespace FinanceApp.ViewModels.Snapshots;
+
+internal class ExchangeRateSnapshotViewModel
 {
     public required PortfolioItemUnit PortfolioItemUnit { get; set; }
-    public required DateOnly Date { get; set; }
     public required decimal Value { get; set; }
 }
