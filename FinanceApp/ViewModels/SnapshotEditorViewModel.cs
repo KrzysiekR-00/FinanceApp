@@ -44,12 +44,14 @@ internal partial class SnapshotEditorViewModel : ViewModelBase
                 .Select(u => new ExchangeRateSnapshotViewModel()
                 {
                     PortfolioItemUnit = u.PortfolioItemUnit,
-                    Value = u.Value
+                    Value = u.Value,
+                    SkipUpdate = false
                 }).ToArray(),
             PortfolioItems = _snapshot.PortfolioItems.Select(p => new PortfolioItemSnapshotViewModel()
             {
                 PortfolioItem = p.PortfolioItem,
-                Quantity = p.Quantity
+                Quantity = p.Quantity,
+                SkipUpdate = false
             }).ToArray()
         };
     }
@@ -57,6 +59,23 @@ internal partial class SnapshotEditorViewModel : ViewModelBase
     [RelayCommand]
     private async Task Save()
     {
+        var toSave = new PortfolioSnapshot()
+        {
+            Date = Snapshot.Date,
+            ExchangeRates = Snapshot.ExchangeRates.Where(u => !u.SkipUpdate).Select(u => new ExchangeRateSnapshot()
+            {
+                Date = Snapshot.Date,
+                PortfolioItemUnit = u.PortfolioItemUnit,
+                Value = u.Value,
+            }).ToArray(),
+            PortfolioItems = Snapshot.PortfolioItems.Where(p => !p.SkipUpdate).Select(p => new PortfolioItemSnapshot()
+            {
+                Date = Snapshot.Date,
+                PortfolioItem = p.PortfolioItem,
+                Quantity = p.Quantity,
+            }).ToArray()
+        };
 
+        await _snapshotService.CreatePortfolioSnapshot(toSave);
     }
 }

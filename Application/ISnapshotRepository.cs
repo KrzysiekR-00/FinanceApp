@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain;
 
 namespace Services;
 
-internal class ISnapshotRepository
+public interface ISnapshotRepository
 {
+    Task CreatePortfolioSnapshot(PortfolioSnapshot snapshot);
 }

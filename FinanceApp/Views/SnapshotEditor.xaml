@@ -3,10 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FinanceApp.Views" xmlns:viewmodels="clr-namespace:FinanceApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:SnapshotEditorViewModel}"
+      xmlns:local="clr-namespace:FinanceApp.Views" 
+      xmlns:converters="clr-namespace:FinanceApp.Converters"
+      xmlns:viewmodels="clr-namespace:FinanceApp.ViewModels" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:SnapshotEditorViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SnapshotEditor">
+
+    <Page.Resources>
+        <converters:InverseBool x:Key="InverseBool"/>
+    </Page.Resources>
 
     <DockPanel>
         <Label Content="Aktualizuj stan" DockPanel.Dock="Top" FontSize="24" Margin="5"/>
@@ -26,9 +33,9 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding PortfolioItemUnit.Symbol}" Margin="5" Width="200"/>
-                                <TextBox Text="{Binding Value}" Margin="5" Width="200"/>
+                                <TextBox Text="{Binding Value}" IsEnabled="{Binding SkipUpdate, Converter={StaticResource InverseBool}}" Margin="5" Width="200"/>
                                 <Label Content="{Binding DataContext.MainUnit.Symbol, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Margin="5" Width="100"/>
-                                <CheckBox Content="Bez zmian" Margin="5" Width="200"/>
+                                <CheckBox Content="Bez zmian/nie aktualizuj" IsChecked="{Binding SkipUpdate}" Margin="5" Width="200"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -39,9 +46,9 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding PortfolioItem.Name}" Margin="5" Width="200"/>
-                                <TextBox Text="{Binding Quantity}" Margin="5" Width="200"/>
+                                <TextBox Text="{Binding Quantity}" IsEnabled="{Binding SkipUpdate, Converter={StaticResource InverseBool}}" Margin="5" Width="200"/>
                                 <Label Content="{Binding PortfolioItem.Unit.Symbol}" Margin="5" Width="100"/>
-                                <CheckBox Content="Bez zmian" Margin="5" Width="200"/>
+                                <CheckBox Content="Bez zmian/nie aktualizuj" IsChecked="{Binding SkipUpdate}" Margin="5" Width="200"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

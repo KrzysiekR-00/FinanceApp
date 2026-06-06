@@ -68,6 +68,7 @@ public partial class App : Application
 
         services.AddScoped<IPortfolioItemUnitRepository, PortfolioItemUnitRepository>();
         services.AddScoped<IPortfolioItemRepository, PortfolioItemRepository>();
+        services.AddScoped<ISnapshotRepository, SnapshotRepository>();
 
         services.AddScoped<PortfolioItemUnitService>();
         services.AddScoped<PortfolioItemService>();
