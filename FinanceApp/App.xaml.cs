@@ -45,7 +45,9 @@ public partial class App : Application
             { typeof(MainLayoutViewModel), typeof(MainLayout) },
             { typeof(PortfolioItemUnitsListViewModel), typeof(PortfolioItemUnitsList) },
             { typeof(PortfolioItemsListViewModel), typeof(PortfolioItemsList) },
-            { typeof(SnapshotEditorViewModel), typeof(SnapshotEditor) }
+            { typeof(SnapshotEditorViewModel), typeof(SnapshotEditor) },
+            { typeof(PortfolioItemsSnapshotsViewModel), typeof(PortfolioItemsSnapshots) },
+            { typeof(PortfolioItemUnitsSnapshotsViewModel), typeof(PortfolioItemUnitsSnapshots) }
         };
 
         foreach (var map in mappings)
@@ -78,6 +80,8 @@ public partial class App : Application
         services.AddScoped<MainLayoutViewModel>();
         services.AddScoped<PortfolioItemUnitsListViewModel>();
         services.AddScoped<PortfolioItemsListViewModel>();
+        services.AddScoped<PortfolioItemsSnapshotsViewModel>();
+        services.AddScoped<PortfolioItemUnitsSnapshotsViewModel>();
 
         services.AddScoped<SnapshotEditorViewModelFactory>();
     }

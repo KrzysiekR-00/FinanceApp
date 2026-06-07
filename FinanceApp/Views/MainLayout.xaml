@@ -26,7 +26,8 @@
             <Button Content="Jednostki" Command="{Binding OpenPortfolioItemUnitsListCommand}"/>
             <Button Content="Aktywa/zobowiązania" Command="{Binding OpenPortfolioItemsListCommand}"/>
             <Button Content="Aktualizuj stan" Command="{Binding AddNewSnapshotCommand}"/>
-            <Button Content="Historia"/>
+            <Button Content="Historia - jednostki" Command="{Binding OpenPortfolioItemUnitsSnapshotsCommand}"/>
+            <Button Content="Historia - aktywa/zobowiązania" Command="{Binding OpenPortfolioItemsSnapshotsCommand}"/>
         </StackPanel>
         <Frame Grid.Column="1" Content="{Binding Navigator.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}" NavigationUIVisibility="Hidden" />
     </Grid>
