@@ -31,6 +31,11 @@ internal partial class SnapshotEditorViewModel : ViewModelBase
 
     public override async Task OnNavigateTo()
     {
+        await ReloadForm();
+    }
+
+    private async Task ReloadForm()
+    {
         var mainUnitId = await _portfolioItemUnitService.GetMainUnitId();
 
         var units = await _portfolioItemUnitService.GetPortfolioItemUnits();
@@ -77,5 +82,7 @@ internal partial class SnapshotEditorViewModel : ViewModelBase
         };
 
         await _snapshotService.CreatePortfolioSnapshot(toSave);
+
+        await ReloadForm();
     }
 }

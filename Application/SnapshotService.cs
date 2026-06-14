@@ -15,4 +15,9 @@ public class SnapshotService
     {
         await _snapshotRepository.CreatePortfolioSnapshot(snapshot);
     }
+
+    public async Task<PortfolioItemSnapshot[]> GetPortfolioItemSnapshots(int portfolioItemId)
+    {
+        return await _snapshotRepository.GetPortfolioItemSnapshots(portfolioItemId);
+    }
 }
