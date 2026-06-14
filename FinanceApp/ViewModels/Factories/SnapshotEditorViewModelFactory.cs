@@ -27,12 +27,14 @@ internal class SnapshotEditorViewModelFactory
             Date = date,
             ExchangeRates = portfolioItemUnits.Select(u => new ExchangeRateSnapshot()
             {
+                Id = 0,
                 Date = date,
                 PortfolioItemUnit = u,
                 Value = 0
             }).ToArray(),
             PortfolioItems = portfolioItems.Select(p => new PortfolioItemSnapshot()
             {
+                Id = 0,
                 Date = date,
                 PortfolioItem = p,
                 Quantity = 0

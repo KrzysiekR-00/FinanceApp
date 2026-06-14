@@ -50,6 +50,7 @@ public class SnapshotRepository : ISnapshotRepository
 
         return entities.Select(e => new PortfolioItemSnapshot()
         {
+            Id = e.Id,
             Date = e.Date,
             Quantity = e.Quantity,
             PortfolioItem = new PortfolioItem()
@@ -65,5 +66,38 @@ public class SnapshotRepository : ISnapshotRepository
                 }
             }
         }).ToArray();
+    }
+
+    public async Task CreatePortfolioItemSnapshot(PortfolioItemSnapshot snapshot)
+    {
+        var entity = new PortfolioItemSnapshotEntity()
+        {
+            Date = snapshot.Date,
+            Quantity = snapshot.Quantity,
+            PortfolioItemId = snapshot.PortfolioItem.Id
+        };
+
+        _dbContext.PortfolioItemSnapshots.Add(entity);
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdatePortfolioItemSnapshot(PortfolioItemSnapshot snapshot)
+    {
+        var entity = await _dbContext.PortfolioItemSnapshots.FirstAsync(x => x.Id == snapshot.Id);
+
+        entity.Date = snapshot.Date;
+        entity.Quantity = snapshot.Quantity;
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task DeletePortfolioItemSnapshot(PortfolioItemSnapshot snapshot)
+    {
+        var entity = await _dbContext.PortfolioItemSnapshots.FirstAsync(x => x.Id == snapshot.Id);
+
+        _dbContext.PortfolioItemSnapshots.Remove(entity);
+
+        await _dbContext.SaveChangesAsync();
     }
 }

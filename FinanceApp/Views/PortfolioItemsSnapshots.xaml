@@ -17,13 +17,15 @@
         <DockPanel>
             <StackPanel DockPanel.Dock="Right" MinWidth="250">
                 <Label Content="Data:" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding EditedUnit.Symbol}"/>
+                <TextBox Margin="5" Text="{Binding EditedSnapshot.Date, ConverterCulture=pl-PL,
+StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Ilość:" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding EditedUnit.UnitModifier}"/>
+                <TextBox Margin="5" Text="{Binding EditedSnapshot.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Snapshots, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedUnit}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
+            <DataGrid ItemsSource="{Binding Snapshots, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSnapshot}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Data" Binding="{Binding Date, ConverterCulture=pl-PL,
 StringFormat='{}{0:dd.MM.yyyy}'}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Ilość" SortMemberPath="Quantity" IsReadOnly="True">

@@ -20,4 +20,19 @@ public class SnapshotService
     {
         return await _snapshotRepository.GetPortfolioItemSnapshots(portfolioItemId);
     }
+
+    public async Task CreatePortfolioItemSnapshot(PortfolioItemSnapshot snapshot)
+    {
+        await _snapshotRepository.CreatePortfolioItemSnapshot(snapshot);
+    }
+
+    public async Task UpdatePortfolioItemSnapshot(PortfolioItemSnapshot snapshot)
+    {
+        await _snapshotRepository.UpdatePortfolioItemSnapshot(snapshot);
+    }
+
+    public async Task DeletePortfolioItemSnapshot(PortfolioItemSnapshot snapshot)
+    {
+        await _snapshotRepository.DeletePortfolioItemSnapshot(snapshot);
+    }
 }

@@ -69,12 +69,14 @@ internal partial class SnapshotEditorViewModel : ViewModelBase
             Date = Snapshot.Date,
             ExchangeRates = Snapshot.ExchangeRates.Where(u => !u.SkipUpdate).Select(u => new ExchangeRateSnapshot()
             {
+                Id = 0,
                 Date = Snapshot.Date,
                 PortfolioItemUnit = u.PortfolioItemUnit,
                 Value = u.Value,
             }).ToArray(),
             PortfolioItems = Snapshot.PortfolioItems.Where(p => !p.SkipUpdate).Select(p => new PortfolioItemSnapshot()
             {
+                Id = 0,
                 Date = Snapshot.Date,
                 PortfolioItem = p.PortfolioItem,
                 Quantity = p.Quantity,
