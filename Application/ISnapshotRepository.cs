@@ -9,4 +9,8 @@ public interface ISnapshotRepository
     Task CreatePortfolioItemSnapshot(PortfolioItemSnapshot snapshot);
     Task UpdatePortfolioItemSnapshot(PortfolioItemSnapshot snapshot);
     Task DeletePortfolioItemSnapshot(PortfolioItemSnapshot snapshot);
+    Task<ExchangeRateSnapshot[]> GetExchangeRateSnapshots(int portfolioItemUnitId);
+    Task CreateExchangeRateSnapshot(ExchangeRateSnapshot snapshot);
+    Task UpdateExchangeRateSnapshot(ExchangeRateSnapshot snapshot);
+    Task DeleteExchangeRateSnapshot(ExchangeRateSnapshot snapshot);
 }

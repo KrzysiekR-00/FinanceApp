@@ -100,4 +100,59 @@ public class SnapshotRepository : ISnapshotRepository
 
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<ExchangeRateSnapshot[]> GetExchangeRateSnapshots(int portfolioItemUnitId)
+    {
+        var entities = await _dbContext.ExchangeRateSnapshots
+            .Where(e => e.UnitId == portfolioItemUnitId)
+            .Include(e => e.Unit)
+            .OrderByDescending(e => e.Date)
+            .ToArrayAsync();
+
+        return entities.Select(e => new ExchangeRateSnapshot()
+        {
+            Id = e.Id,
+            Date = e.Date,
+            Value = e.Value,
+            PortfolioItemUnit = new PortfolioItemUnit()
+            {
+                Id = e.Unit.Id,
+                Symbol = e.Unit.Symbol,
+                UnitModifier = e.Unit.UnitModifier
+            }
+        }).ToArray();
+    }
+
+    public async Task CreateExchangeRateSnapshot(ExchangeRateSnapshot snapshot)
+    {
+        var entity = new ExchangeRateSnapshotEntity()
+        {
+            Date = snapshot.Date,
+            Value = snapshot.Value,
+            UnitId = snapshot.PortfolioItemUnit.Id
+        };
+
+        _dbContext.ExchangeRateSnapshots.Add(entity);
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateExchangeRateSnapshot(ExchangeRateSnapshot snapshot)
+    {
+        var entity = await _dbContext.ExchangeRateSnapshots.FirstAsync(x => x.Id == snapshot.Id);
+
+        entity.Date = snapshot.Date;
+        entity.Value = snapshot.Value;
+
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task DeleteExchangeRateSnapshot(ExchangeRateSnapshot snapshot)
+    {
+        var entity = await _dbContext.ExchangeRateSnapshots.FirstAsync(x => x.Id == snapshot.Id);
+
+        _dbContext.ExchangeRateSnapshots.Remove(entity);
+
+        await _dbContext.SaveChangesAsync();
+    }
 }

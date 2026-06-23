@@ -18,9 +18,9 @@
             <StackPanel DockPanel.Dock="Right" MinWidth="250">
                 <Label Content="Data:" Margin="5"/>
                 <TextBox Margin="5" Text="{Binding EditedSnapshot.Date, ConverterCulture=pl-PL,
-StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=PropertyChanged}"/>
+StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}"/>
                 <Label Content="Ilość:" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding EditedSnapshot.Quantity, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="5" Text="{Binding EditedSnapshot.Quantity, UpdateSourceTrigger=LostFocus}"/>
                 <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding Snapshots, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSnapshot}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">

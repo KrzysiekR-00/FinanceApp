@@ -3,12 +3,44 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FinanceApp.Views"
+      xmlns:local="clr-namespace:FinanceApp.Views" xmlns:viewmodels="clr-namespace:FinanceApp.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:PortfolioItemUnitsSnapshotsViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PortfolioItemUnitsSnapshots">
 
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <Label Content="Historia - jednostki" DockPanel.Dock="Top" FontSize="24" Margin="5"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <ComboBox DisplayMemberPath="Symbol" ItemsSource="{Binding PortfolioItemUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPortfolioItemUnit}" Margin="5" Width="250"/>
+            <Button Content="Wczytaj" Command="{Binding ReloadCommand}" Margin="5"/>
+        </StackPanel>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" MinWidth="250">
+                <Label Content="Data:" Margin="5"/>
+                <TextBox Margin="5" Text="{Binding EditedSnapshot.Date, ConverterCulture=pl-PL,
+StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}"/>
+                <Label Content="Wartość:" Margin="5"/>
+                <TextBox Margin="5" Text="{Binding EditedSnapshot.Value, UpdateSourceTrigger=LostFocus}"/>
+                <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding Snapshots, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSnapshot}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Data" Binding="{Binding Date, ConverterCulture=pl-PL,
+StringFormat='{}{0:dd.MM.yyyy}'}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Wartość" Binding="{Binding Value}" IsReadOnly="True" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Edytuj" Margin="5" IsEnabled="{Binding CanEdit}" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    <Button Content="Usuń" Margin="5" IsEnabled="{Binding CanEdit}"  Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </DockPanel>
 </Page>
