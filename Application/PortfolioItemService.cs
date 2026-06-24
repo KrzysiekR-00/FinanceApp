@@ -5,10 +5,12 @@ namespace Services;
 public class PortfolioItemService
 {
     private readonly IPortfolioItemRepository _repository;
+    private readonly ISnapshotRepository _snapshotRepository;
 
-    public PortfolioItemService(IPortfolioItemRepository repository)
+    public PortfolioItemService(IPortfolioItemRepository repository, ISnapshotRepository snapshotRepository)
     {
         _repository = repository;
+        _snapshotRepository = snapshotRepository;
     }
 
     public async Task<PortfolioItem[]> GetPortfolioItems()
@@ -18,7 +20,9 @@ public class PortfolioItemService
 
     public async Task<bool> CanEditPortfolioItem(PortfolioItem portfolioItem)
     {
-        return true;
+        var snapshots = await _snapshotRepository.GetPortfolioItemSnapshots(portfolioItem.Id);
+
+        return snapshots.Length <= 0;
     }
 
     public async Task CreatePortfolioItem(PortfolioItem portfolioItem)
