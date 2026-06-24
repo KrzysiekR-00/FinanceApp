@@ -15,7 +15,7 @@
                 <Label Content="Symbol:" Margin="5"/>
                 <TextBox Margin="5" Text="{Binding EditedUnit.Symbol}"/>
                 <Label Content="Modyfikator:" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding EditedUnit.UnitModifier}"/>
+                <TextBox Margin="5" Text="{Binding EditedUnit.UnitModifier, ConverterCulture=pl-PL}"/>
                 <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
                 <Label Content="Główna jednostka:" Margin="5"/>
                 <ComboBox DisplayMemberPath="PortfolioItemUnit.Symbol" ItemsSource="{Binding PortfolioItemUnits, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding MainUnit}" Margin="5"/>
@@ -24,7 +24,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding PortfolioItemUnit.Id}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Symbol" Binding="{Binding PortfolioItemUnit.Symbol}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Modyfikator" Binding="{Binding PortfolioItemUnit.UnitModifier}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Modyfikator" Binding="{Binding PortfolioItemUnit.UnitModifier, ConverterCulture=pl-PL}" IsReadOnly="True"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

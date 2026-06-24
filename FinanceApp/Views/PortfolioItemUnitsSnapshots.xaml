@@ -20,7 +20,7 @@
                 <TextBox Margin="5" Text="{Binding EditedSnapshot.Date, ConverterCulture=pl-PL,
 StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}"/>
                 <Label Content="Wartość:" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding EditedSnapshot.Value, UpdateSourceTrigger=LostFocus}"/>
+                <TextBox Margin="5" Text="{Binding EditedSnapshot.Value, ConverterCulture=pl-PL, UpdateSourceTrigger=LostFocus}"/>
                 <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding Snapshots, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSnapshot}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
@@ -28,7 +28,7 @@ StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}"/>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Data" Binding="{Binding Date, ConverterCulture=pl-PL,
 StringFormat='{}{0:dd.MM.yyyy}'}" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Wartość" Binding="{Binding Value}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Wartość" Binding="{Binding Value, StringFormat=N2, ConverterCulture=pl-PL}" IsReadOnly="True" />
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

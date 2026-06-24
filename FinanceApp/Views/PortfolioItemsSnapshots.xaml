@@ -20,7 +20,7 @@
                 <TextBox Margin="5" Text="{Binding EditedSnapshot.Date, ConverterCulture=pl-PL,
 StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}"/>
                 <Label Content="Ilość:" Margin="5"/>
-                <TextBox Margin="5" Text="{Binding EditedSnapshot.Quantity, UpdateSourceTrigger=LostFocus}"/>
+                <TextBox Margin="5" Text="{Binding EditedSnapshot.Quantity, ConverterCulture=pl-PL, UpdateSourceTrigger=LostFocus}"/>
                 <Button Content="Dodaj" Command="{Binding SaveCommand}" Margin="5"/>
             </StackPanel>
             <DataGrid ItemsSource="{Binding Snapshots, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedSnapshot}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Margin="5">
@@ -30,7 +30,7 @@ StringFormat='{}{0:dd.MM.yyyy}', UpdateSourceTrigger=LostFocus}"/>
 StringFormat='{}{0:dd.MM.yyyy}'}" IsReadOnly="True" />
                     <DataGridTextColumn Header="Ilość" SortMemberPath="Quantity" IsReadOnly="True">
                         <DataGridTextColumn.Binding>
-                            <MultiBinding StringFormat="{}{0:N2} {1}">
+                            <MultiBinding StringFormat="{}{0:N2} {1}" ConverterCulture="pl-PL">
                                 <Binding Path="Quantity" />
                                 <Binding Path="PortfolioItem.Unit.Symbol" />
                             </MultiBinding>

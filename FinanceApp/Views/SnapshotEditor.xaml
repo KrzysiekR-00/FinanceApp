@@ -33,7 +33,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding PortfolioItemUnit.Symbol}" Margin="5" Width="200"/>
-                                <TextBox Text="{Binding Value}" IsEnabled="{Binding SkipUpdate, Converter={StaticResource InverseBool}}" Margin="5" Width="200"/>
+                                <TextBox Text="{Binding Value, ConverterCulture=pl-PL}" IsEnabled="{Binding SkipUpdate, Converter={StaticResource InverseBool}}" Margin="5" Width="200"/>
                                 <Label Content="{Binding DataContext.MainUnit.Symbol, RelativeSource={RelativeSource AncestorType=ItemsControl}}" Margin="5" Width="100"/>
                                 <CheckBox Content="Bez zmian/nie aktualizuj" IsChecked="{Binding SkipUpdate}" Margin="5" Width="200"/>
                             </StackPanel>
@@ -46,7 +46,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="{Binding PortfolioItem.Name}" Margin="5" Width="200"/>
-                                <TextBox Text="{Binding Quantity}" IsEnabled="{Binding SkipUpdate, Converter={StaticResource InverseBool}}" Margin="5" Width="200"/>
+                                <TextBox Text="{Binding Quantity, ConverterCulture=pl-PL}" IsEnabled="{Binding SkipUpdate, Converter={StaticResource InverseBool}}" Margin="5" Width="200"/>
                                 <Label Content="{Binding PortfolioItem.Unit.Symbol}" Margin="5" Width="100"/>
                                 <CheckBox Content="Bez zmian/nie aktualizuj" IsChecked="{Binding SkipUpdate}" Margin="5" Width="200"/>
                             </StackPanel>
