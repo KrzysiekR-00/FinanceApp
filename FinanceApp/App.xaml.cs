@@ -32,7 +32,6 @@ public partial class App : Application
         db.Database.Migrate();
 
         var window = new MainWindow();
-        //var viewModel = new MainWindowViewModel();
         var viewModel = Services.GetRequiredService<MainWindowViewModel>();
         window.DataContext = viewModel;
         window.Show();
@@ -47,7 +46,8 @@ public partial class App : Application
             { typeof(PortfolioItemsListViewModel), typeof(PortfolioItemsList) },
             { typeof(SnapshotEditorViewModel), typeof(SnapshotEditor) },
             { typeof(PortfolioItemsSnapshotsViewModel), typeof(PortfolioItemsSnapshots) },
-            { typeof(PortfolioItemUnitsSnapshotsViewModel), typeof(PortfolioItemUnitsSnapshots) }
+            { typeof(PortfolioItemUnitsSnapshotsViewModel), typeof(PortfolioItemUnitsSnapshots) },
+            { typeof(DashboardViewModel), typeof(Dashboard) }
         };
 
         foreach (var map in mappings)
@@ -82,6 +82,7 @@ public partial class App : Application
         services.AddScoped<PortfolioItemsListViewModel>();
         services.AddScoped<PortfolioItemsSnapshotsViewModel>();
         services.AddScoped<PortfolioItemUnitsSnapshotsViewModel>();
+        services.AddScoped<DashboardViewModel>();
 
         services.AddScoped<SnapshotEditorViewModelFactory>();
     }

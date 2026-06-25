@@ -39,12 +39,19 @@ public class SnapshotRepository : ISnapshotRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<PortfolioItemSnapshot[]> GetPortfolioItemSnapshots(int portfolioItemId)
+    public async Task<PortfolioItemSnapshot[]> GetPortfolioItemSnapshots(int? portfolioItemId = null)
     {
-        var entities = await _dbContext.PortfolioItemSnapshots
-            .Where(e => e.PortfolioItemId == portfolioItemId)
+        var query = _dbContext.PortfolioItemSnapshots
             .Include(e => e.PortfolioItem)
             .Include(e => e.PortfolioItem.Unit)
+            .AsQueryable();
+
+        if (portfolioItemId.HasValue)
+        {
+            query = query.Where(e => e.PortfolioItemId == portfolioItemId);
+        }
+
+        var entities = await query
             .OrderByDescending(e => e.Date)
             .ToArrayAsync();
 
@@ -101,11 +108,18 @@ public class SnapshotRepository : ISnapshotRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<ExchangeRateSnapshot[]> GetExchangeRateSnapshots(int portfolioItemUnitId)
+    public async Task<ExchangeRateSnapshot[]> GetExchangeRateSnapshots(int? portfolioItemUnitId = null)
     {
-        var entities = await _dbContext.ExchangeRateSnapshots
-            .Where(e => e.UnitId == portfolioItemUnitId)
+        var query = _dbContext.ExchangeRateSnapshots
             .Include(e => e.Unit)
+            .AsQueryable();
+
+        if (portfolioItemUnitId.HasValue)
+        {
+            query = query.Where(e => e.UnitId == portfolioItemUnitId);
+        }
+
+        var entities = await query
             .OrderByDescending(e => e.Date)
             .ToArrayAsync();
 

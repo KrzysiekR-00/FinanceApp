@@ -22,7 +22,7 @@
                     <Setter Property="Padding" Value="25,10" />
                 </Style>
             </StackPanel.Resources>
-            <Button Content="Dashboard"/>
+            <Button Content="Dashboard" Command="{Binding OpenDashboardCommand}"/>
             <Button Content="Jednostki" Command="{Binding OpenPortfolioItemUnitsListCommand}"/>
             <Button Content="Aktywa/zobowiązania" Command="{Binding OpenPortfolioItemsListCommand}"/>
             <Button Content="Aktualizuj stan" Command="{Binding AddNewSnapshotCommand}"/>

@@ -15,13 +15,15 @@ internal partial class MainLayoutViewModel : ViewModelBase
     private readonly SnapshotEditorViewModelFactory _snapshotEditorViewModelFactory;
     private readonly PortfolioItemsSnapshotsViewModel _portfolioItemsSnapshotsViewModel;
     private readonly PortfolioItemUnitsSnapshotsViewModel _portfolioItemUnitsSnapshotsViewModel;
+    private readonly DashboardViewModel _dashboardViewModel;
 
     public MainLayoutViewModel(
         PortfolioItemUnitsListViewModel portfolioItemUnitsListViewModel,
         PortfolioItemsListViewModel portfolioItemsListViewModel,
         SnapshotEditorViewModelFactory snapshotEditorViewModelFactory,
         PortfolioItemsSnapshotsViewModel portfolioItemsSnapshotsViewModel,
-        PortfolioItemUnitsSnapshotsViewModel portfolioItemUnitsSnapshotsViewModel
+        PortfolioItemUnitsSnapshotsViewModel portfolioItemUnitsSnapshotsViewModel,
+        DashboardViewModel dashboardViewModel
         )
     {
         Navigator = new Navigator(null);
@@ -31,6 +33,13 @@ internal partial class MainLayoutViewModel : ViewModelBase
         _snapshotEditorViewModelFactory = snapshotEditorViewModelFactory;
         _portfolioItemsSnapshotsViewModel = portfolioItemsSnapshotsViewModel;
         _portfolioItemUnitsSnapshotsViewModel = portfolioItemUnitsSnapshotsViewModel;
+        _dashboardViewModel = dashboardViewModel;
+    }
+
+    [RelayCommand]
+    private async Task OpenDashboard()
+    {
+        await Navigator.NavigateTo(_dashboardViewModel);
     }
 
     [RelayCommand]

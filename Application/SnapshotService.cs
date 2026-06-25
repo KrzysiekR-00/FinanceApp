@@ -16,6 +16,35 @@ public class SnapshotService
         await _snapshotRepository.CreatePortfolioSnapshot(snapshot);
     }
 
+    public async Task<PortfolioSnapshot[]> GetPortfolioSnapshots()
+    {
+        var portfolioItemSnapshots = await _snapshotRepository.GetPortfolioItemSnapshots();
+        var exchangeRateSnapshots = await _snapshotRepository.GetExchangeRateSnapshots();
+
+        var dates = portfolioItemSnapshots
+            .Select(s => s.Date)
+            .Concat(exchangeRateSnapshots.Select(s => s.Date))
+            .Distinct()
+            .ToArray();
+
+        dates.Sort();
+        dates = dates.Reverse().ToArray();
+
+        var snapshots = new List<PortfolioSnapshot>();
+
+        foreach (var date in dates)
+        {
+            snapshots.Add(new PortfolioSnapshot()
+            {
+                Date = date,
+                ExchangeRates = exchangeRateSnapshots.Where(s => s.Date == date).ToArray(),
+                PortfolioItems = portfolioItemSnapshots.Where(s => s.Date == date).ToArray(),
+            });
+        }
+
+        return snapshots.ToArray();
+    }
+
     public async Task<PortfolioItemSnapshot[]> GetPortfolioItemSnapshots(int portfolioItemId)
     {
         return await _snapshotRepository.GetPortfolioItemSnapshots(portfolioItemId);
